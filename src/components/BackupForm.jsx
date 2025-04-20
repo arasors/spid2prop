@@ -34,8 +34,7 @@ const BackupForm = () => {
       </Typography>
       
       <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-        Enter the URL of the agent's page you want to backup. Example: 
-        https://www.spitogatos.gr/en/find-agents/Greek-Living-Real-Estate/10301?portfolio=true
+        Enter the URL of the agent's page you want to backup. 
       </Typography>
       
       {error && (

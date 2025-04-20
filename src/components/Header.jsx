@@ -16,7 +16,7 @@ const Header = () => {
   const { mode, toggleColorMode } = useThemeContext();
 
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" sx={{ borderRadius: '2px' }}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Typography variant="h6" component="div">
