@@ -19,6 +19,7 @@ const Header = () => {
     <AppBar position="sticky" sx={{ borderRadius: '2px' }}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <img src="/logo512.png" alt="Spid2Prop" width="32" height="32" style={{ marginRight: '10px' }} />
           <Typography variant="h6" component="div">
             Spid2Prop
           </Typography>
