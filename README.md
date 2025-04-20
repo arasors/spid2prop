@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+# Spid2Prop
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern web application for backing up real estate data from external websites.
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+Spid2Prop is a tool designed to help users back up real estate agent data from specified URLs. The application sends a request to a scraping service, monitors the progress of the backup job, and provides download links for the extracted data when complete.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Start backup jobs by providing an agent URL
+- Real-time monitoring of backup progress with 10-second polling intervals
+- Visual progress indicators showing the number of properties being extracted
+- Download Excel files and images once the backup is complete
+- History of all backup jobs with their current status
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technologies Used
 
-### `npm test`
+- React.js
+- Material UI for modern UI components
+- Zustand for state management
+- Axios for API requests
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `npm run build`
+1. Clone the repository:
+```
+git clone https://github.com/arasors/spid2prop
+cd spid-2-prop
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Install dependencies:
+```
+npm install
+or
+pnpm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Start the development server:
+```
+npm start
+or
+pnpm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The application will be available at http://localhost:3000
 
-### `npm run eject`
+## Usage
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Enter the URL of the agent's page you want to backup in the input field
+   - Example: `https://www.spitogatos.gr/en/find-agents/Greek-Living-Real-Estate/10301?portfolio=true`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Click "Start Backup" to begin the extraction process
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. The application will automatically check the status of your backup job every 10 seconds
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. Once completed, you'll see "Download Excel" and "Download Images" buttons to access your data
 
-## Learn More
+## API Endpoints
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The application uses the following API endpoints:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- `POST /start-scraping` - Start a new backup job
+  - Request body: `{ "url": "https://example.com/agent-page" }`
+  - Response: `{ "check_status_url": "/status/task-id", "message": "Task started", "status": "started", "task_id": "task-id" }`
 
-### Code Splitting
+- `GET /status/:taskId` - Check the status of a backup job
+  - Response (running): `{ "progress": 1, "status": "running" }`
+  - Response (completed): `{ "download_links": { "excel": "/download/excel/task-id", "images": "/download/images/task-id" }, "progress": 9, "status": "completed" }`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Project Structure
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- `src/store/backupStore.js` - Zustand store for managing backup jobs and API interactions
+- `src/components/Header.jsx` - Application header component
+- `src/components/BackupForm.jsx` - Form for starting new backup jobs
+- `src/components/BackupJobsList.jsx` - Component displaying all backup jobs and their status
+- `src/theme.js` - Material UI theme configuration
+- `src/App.js` - Main application component
